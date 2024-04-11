@@ -24,11 +24,11 @@ class JwtToken
 
     /**
      * 从query中获取jwt数据
-     * @return mixed|null
+     * @return mixed
      */
     public function getJwtTokenQuery()
     {
-        return empty($_GET[$this->queryKey]) ? null : $_GET[$this->queryKey];
+        return empty($_GET[$this->queryKey]) ? '' : $_GET[$this->queryKey];
     }
 
     /**
@@ -37,7 +37,7 @@ class JwtToken
      */
     public function getJwtTokenHeader()
     {
-        $jwt = null;
+        $jwt = '';
 
         $value = empty($_SERVER['HTTP_AUTHORIZATION']) ? '' : $_SERVER['HTTP_AUTHORIZATION'];
         if (!empty($value)) {
