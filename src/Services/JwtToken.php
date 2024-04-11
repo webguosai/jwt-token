@@ -15,7 +15,7 @@ class JwtToken
     {
         $jwt = $this->getJwtTokenQuery();
 
-        if (is_null($jwt)) {
+        if (empty($jwt)) {
             $jwt = $this->getJwtTokenHeader();
         }
 
