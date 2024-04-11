@@ -39,7 +39,7 @@ class JwtToken
     {
         $jwt = null;
 
-        $value = $_SERVER['HTTP_AUTHORIZATION'];
+        $value = empty($_SERVER['HTTP_AUTHORIZATION']) ? '' : $_SERVER['HTTP_AUTHORIZATION'];
         if (!empty($value)) {
             $jwt = str_ireplace($this->pre, '', $value);
         }

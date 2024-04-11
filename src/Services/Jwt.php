@@ -3,7 +3,6 @@
 namespace Webguosai\JwtToken\Services;
 
 use Exception;
-use Firebase\JWT\ExpiredException;
 use Firebase\JWT\Key;
 
 class Jwt
@@ -60,9 +59,6 @@ class Jwt
         try {
             $params = \Firebase\JWT\JWT::decode($jwt, new Key($this->key, $this->alg));
             return unserialize($params->data);
-        } catch (ExpiredException $e) {
-            // 过期
-            throw new ExpiredException();
         } catch (Exception $e) {
             return null;
         }
