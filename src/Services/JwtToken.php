@@ -4,9 +4,6 @@ namespace Webguosai\JwtToken\Services;
 
 class JwtToken
 {
-    protected $queryKey = 'token';
-    protected $pre = 'Bearer ';
-
     /**
      * 获取jwt数据
      * @return mixed
@@ -24,24 +21,26 @@ class JwtToken
 
     /**
      * 从query中获取jwt数据
-     * @return mixed
+     * @param string $keyName
+     * @return mixed|string
      */
-    public function getJwtTokenQuery()
+    public function getJwtTokenQuery(string $keyName = 'token')
     {
-        return empty($_GET[$this->queryKey]) ? '' : $_GET[$this->queryKey];
+        return empty($_REQUEST[$keyName]) ? '' : $_REQUEST[$keyName];
     }
 
     /**
      * 从header中获取jwt数据
+     * @param string $keyName
      * @return mixed
      */
-    public function getJwtTokenHeader()
+    public function getJwtTokenHeader(string $keyName = 'HTTP_AUTHORIZATION')
     {
         $jwt = '';
 
-        $value = empty($_SERVER['HTTP_AUTHORIZATION']) ? '' : $_SERVER['HTTP_AUTHORIZATION'];
+        $value = empty($_SERVER[$keyName]) ? '' : $_SERVER[$keyName];
         if (!empty($value)) {
-            $jwt = str_ireplace($this->pre, '', $value);
+            $jwt = str_ireplace('Bearer ', '', $value);
         }
 
         return $jwt;
